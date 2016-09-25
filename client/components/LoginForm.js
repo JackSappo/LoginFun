@@ -1,12 +1,17 @@
 import React from 'react';
-import { Form, FormControl, FormGroup, Col, Button, ControlLabel } from 'react-bootstrap'
+import { connect } from 'react-redux';
 import axios from 'axios';
+
+import { Form, FormControl, FormGroup, Col, Button, ControlLabel } from 'react-bootstrap'
 
 class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {email: '', password: ''};
+    this.state = {
+      email: '',
+      password: ''
+    };
     this.changeEmail = this.changeEmail.bind(this);
     this.changePass = this.changePass.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -17,7 +22,7 @@ class LoginForm extends React.Component {
   }
 
   changePass(e) {
-    this.setState({password: e.target.value});
+    this.setState({ password: e.target.value});
   }
 
   submitForm(e) {

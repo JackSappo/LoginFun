@@ -17,6 +17,7 @@
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "nodemon": "^1.10.2",
+    "redux-thunk": "^2.1.0",
     "webpack": "^1.13.2"
   },
   "dependencies": {
@@ -28,8 +29,10 @@
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.6",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "thunk": "0.0.1"
   }
 }
