@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, FormControl, FormGroup, Col, Button, ControlLabel } from 'react-bootstrap'
+import axios from 'axios';
 
 class LoginForm extends React.Component {
   constructor() {
@@ -21,19 +22,28 @@ class LoginForm extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    console.log('Submitted form');
+    axios.post('/api/login', {
+      email: this.state.email,
+      password: this.state.password
+    })
+    .then(function (response) {
+      console.log('response received');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.submitForm}>
-        <FormGroup controlId="formHorizontalEmail">
+          <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={2}>
               Email
             </Col>
             <Col sm={10}>
-              <FormControl type="email" placeholder="Email" onChange={this.changeEmail}/>
+              <FormControl placeholder="Email" onChange={this.changeEmail}/>
             </Col>
           </FormGroup>
 
