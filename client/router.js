@@ -5,6 +5,8 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import App from './components/App.js';
 
+import store, {history} from './store.js';
+
 const router = (
   <Router>
     <Route path="/" component={App}/>
