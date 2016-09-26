@@ -13,7 +13,7 @@ class Main extends React.Component {
         <Link to="/">User form</Link> <br/>
         <Link to="/confirm">Confirm</Link> <br/>
         <div>
-          {React.cloneElement(this.props.children, this.state)}
+          {React.cloneElement({...this.props}.children, {...this.state})}
         </div>
       </div>
     )

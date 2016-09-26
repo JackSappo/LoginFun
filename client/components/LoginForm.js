@@ -33,7 +33,15 @@ class LoginForm extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    this.props.plsSignInUser();
+
+    //Update state
+    let user = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    this.props.plsSignInUser(user);
+
+    //Update DB
     axios.post('/api/login', {
       email: this.state.email,
       password: this.state.password
@@ -94,8 +102,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    plsSignInUser: () => {
-      dispatch(signInUser())
+    plsSignInUser: (user) => {
+      dispatch(signInUser(user))
     }
   }
 }

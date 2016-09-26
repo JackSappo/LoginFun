@@ -28650,6 +28650,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -28700,7 +28702,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.cloneElement(this.props.children, this.state)
+	          _react2.default.cloneElement(_extends({}, this.props).children, _extends({}, this.state))
 	        )
 	      );
 	    }
@@ -28786,7 +28788,15 @@
 	    key: 'submitForm',
 	    value: function submitForm(e) {
 	      e.preventDefault();
-	      this.props.plsSignInUser();
+
+	      //Update state
+	      var user = {
+	        email: this.state.email,
+	        password: this.state.password
+	      };
+	      this.props.plsSignInUser(user);
+
+	      //Update DB
 	      _axios2.default.post('/api/login', {
 	        email: this.state.email,
 	        password: this.state.password
@@ -28868,8 +28878,8 @@
 
 	function mapDispatchToProps(dispatch) {
 	  return {
-	    plsSignInUser: function plsSignInUser() {
-	      dispatch((0, _authActions.signInUser)());
+	    plsSignInUser: function plsSignInUser(user) {
+	      dispatch((0, _authActions.signInUser)(user));
 	    }
 	  };
 	}
@@ -30232,6 +30242,7 @@
 	});
 	var signInUser = exports.signInUser = function signInUser(user) {
 	  console.log('returning action');
+	  console.log('action user is', user);
 	  return {
 	    type: 'SIGNIN',
 	    user: user
@@ -49480,7 +49491,10 @@
 	  switch (action.type) {
 	    case 'SIGNIN':
 	      console.log('reducer triggered');
-	      return Object.assign({}, state);
+	      console.log('action.user', action.user);
+	      // return Object.assign({}, state);
+	      return Object.assign({}, state, action.user);
+	    // console.log('state', ...state);
 	    // return {...state}
 
 
