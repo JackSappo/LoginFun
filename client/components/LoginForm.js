@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { signInUser } from '../actions/authActions.js';
+import { bindActionCreators } from 'redux';
 
 import { Form, FormControl, FormGroup, Col, Button, ControlLabel } from 'react-bootstrap'
 
@@ -8,13 +10,17 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      email: '',
-      password: ''
-    };
     this.changeEmail = this.changeEmail.bind(this);
     this.changePass = this.changePass.bind(this);
     this.submitForm = this.submitForm.bind(this);
+  }
+
+  componentWillMount() {
+    console.log('props', this.props);
+    this.setState({
+      email: this.props.user.email,
+      password: this.props.user.password
+    })
   }
 
   changeEmail(e) {
@@ -27,6 +33,7 @@ class LoginForm extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
+    this.props.plsSignInUser();
     axios.post('/api/login', {
       email: this.state.email,
       password: this.state.password
@@ -48,7 +55,7 @@ class LoginForm extends React.Component {
               Email
             </Col>
             <Col sm={10}>
-              <FormControl placeholder="Email" onChange={this.changeEmail}/>
+              <FormControl value={this.state.email} placeholder="Email" onChange={this.changeEmail}/>
             </Col>
           </FormGroup>
 
@@ -57,7 +64,7 @@ class LoginForm extends React.Component {
               Password
             </Col>
             <Col sm={10}>
-              <FormControl type="password" placeholder="Password" onChange={this.ChangePass}/>
+              <FormControl value={this.state.password} type="password" placeholder="Password" onChange={this.changePass}/>
             </Col>
           </FormGroup>
 
@@ -69,9 +76,29 @@ class LoginForm extends React.Component {
             </Col>
           </FormGroup>
         </form>
+        <br/><br/>
+
+        {this.props.user.email} -- {this.props.user.password}
+        <br/>
+
       </div>
     )
   }
 }
 
-export default LoginForm;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    plsSignInUser: () => {
+      dispatch(signInUser())
+    }
+  }
+}
+
+// export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
