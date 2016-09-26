@@ -42,16 +42,7 @@ class LoginForm extends React.Component {
     this.props.plsSignInUser(user);
 
     //Update DB
-    axios.post('/api/login', {
-      email: this.state.email,
-      password: this.state.password
-    })
-    .then(function (response) {
-      console.log('response received');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
   }
 
   render() {

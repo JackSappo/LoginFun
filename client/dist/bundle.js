@@ -28797,14 +28797,6 @@
 	      this.props.plsSignInUser(user);
 
 	      //Update DB
-	      _axios2.default.post('/api/login', {
-	        email: this.state.email,
-	        password: this.state.password
-	      }).then(function (response) {
-	        console.log('response received');
-	      }).catch(function (error) {
-	        console.log(error);
-	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -30233,16 +30225,28 @@
 
 /***/ },
 /* 282 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var axios = __webpack_require__(260);
+
 	var signInUser = exports.signInUser = function signInUser(user) {
 	  console.log('returning action');
 	  console.log('action user is', user);
+
+	  axios.post('/api/login', {
+	    email: user.email,
+	    password: user.password
+	  }).then(function (response) {
+	    console.log('response received');
+	  }).catch(function (error) {
+	    console.log(error);
+	  });
+
 	  return {
 	    type: 'SIGNIN',
 	    user: user

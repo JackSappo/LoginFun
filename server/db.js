@@ -15,7 +15,7 @@ const db = require('knex')({
 });
 
 db.raw('select 1+1 as result').then(function () {
-  console.log('you are connected');
+  console.log('CONNECTED TO DB');
 });
 
 db.schema.hasTable('testeroo').then(function(exists){
@@ -25,7 +25,7 @@ db.schema.hasTable('testeroo').then(function(exists){
       user.string('email', 50).unique();
       user.string('password', 50);
       user.timestamps();
-      console.log('Created users table');
+      console.log('Created test table');
     })
     .catch(function(err){
       console.error(err);
